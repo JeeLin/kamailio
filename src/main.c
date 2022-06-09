@@ -1920,6 +1920,7 @@ static int calc_proc_no(void)
 		;
 }
 
+// 程序启动入口
 int main(int argc, char** argv)
 {
 
@@ -1947,6 +1948,7 @@ int main(int argc, char** argv)
 	int option_index = 0;
 
 #define KARGOPTVAL	1024
+	// 命令、参数、 、缩写
 	static struct option long_options[] = {
 		/* long options with short variant */
 		{"help",  no_argument, 0, 'h'},
@@ -1965,17 +1967,21 @@ int main(int argc, char** argv)
 		{0, 0, 0, 0 }
 	};
 
+	// 设置 up_since 为当前时间
 	/*init*/
 	time(&up_since);
+	// 获取pid
 	creator_pid = getpid();
 	ret=-1;
 	my_argc=argc; my_argv=argv;
 	debug_flag=0;
 	dont_fork_cnt=0;
 
+	// 初始化一个_sr_cfgenv，暂不清楚用途 TODO
 	sr_cfgenv_init();
+	// 初始化守护进程的记录状态为-1
 	daemon_status_init();
-
+	// 初始化各类日志级别的颜色
 	dprint_init_colors();
 
 	/* command line options */
@@ -1990,18 +1996,23 @@ int main(int argc, char** argv)
 	 */
 	opterr = 0;
 	option_index = 0;
+	// getopt_long https://blog.csdn.net/qq_33850438/article/details/80172275
 	while((c=getopt_long(argc, argv, options, long_options, &option_index))!=-1) {
 		switch(c) {
+			// debug level
 			case 'd':
 					debug_flag = 1;
 					default_core_cfg.debug++;
 					break;
+			// Log to stderr
 			case 'E':
 					log_stderr=1;
 					break;
+			// Log messages printed in terminal colors (requires -E)
 			case 'e':
 					log_color=1;
 					break;
+			// Size of private memory allocated, in Megabytes
 			case 'M':
 					if (optarg == NULL) {
 						fprintf(stderr, "bad private mem size\n");
@@ -2014,12 +2025,17 @@ int main(int argc, char** argv)
 						goto error;
 					};
 					break;
+			// Specify internal manager for shared memory (shm)\n\
+                  - can be: fm, qm or tlsf
 			case 'x':
 					sr_memmng_shm = optarg;
 					break;
+			// Specify internal manager for private memory (pkg)\n\
+                  - if omitted, the one for shm is used
 			case 'X':
 					sr_memmng_pkg = optarg;
 					break;
+			// log-engine=log engine name and data
 			case KARGOPTVAL+7:
 					ksr_slog_init(optarg);
 					break;

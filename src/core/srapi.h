@@ -28,6 +28,8 @@ int sr_register_callid_func(sr_generate_callid_f f);
 
 sr_generate_callid_f sr_get_callid_func(void);
 
+// sr_cseq_update_f 是函数指针
+// sip_msg_t 是形参
 typedef int (*sr_cseq_update_f)(sip_msg_t*);
 typedef struct sr_cfgenv {
 	sr_cseq_update_f cb_cseq_update;

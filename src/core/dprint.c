@@ -234,7 +234,7 @@ typedef struct log_level_color {
 	char f;
 	char b;
 } log_level_color_t;
-
+// 9
 log_level_color_t _log_level_colors[L_MAX - L_MIN + 1];
 
 void dprint_init_colors(void)
@@ -704,11 +704,13 @@ void ksr_slog_init(char *ename)
 
 	p = strchr(ename, ':');
 	if(p) {
+		// p ename 是指针，减去后是长度
 		elen = p - ename;
 	} else {
 		elen = strlen(ename);
 	}
 
+	// strncasecmp 比较前几个字符
 	if ((elen==4) && (strncasecmp(ename, "json", 4)==0)) {
 		_km_log_engine_type = "json";
 		_ksr_slog_func = &ksr_slog_json;

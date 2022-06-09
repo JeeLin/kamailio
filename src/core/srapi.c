@@ -55,6 +55,7 @@ static sr_cfgenv_t _sr_cfgenv;
  */
 void sr_cfgenv_init(void)
 {
+	// _sr_cfgenv所有字节全部置为0
 	memset(&_sr_cfgenv, 0, sizeof(sr_cfgenv_t));
 	_sr_cfgenv.uac_cseq_auth.s = "P-K-CSeq-Auth";
 	_sr_cfgenv.uac_cseq_auth.len = strlen(_sr_cfgenv.uac_cseq_auth.s);
