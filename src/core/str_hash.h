@@ -47,6 +47,7 @@ struct str_hash_head{
 
 
 struct str_hash_table{
+	// 此处应该等于 struct str_hash_head table[size]; 并且不需要默认的size值
 	struct str_hash_head* table;
 	int size;
 };
@@ -56,6 +57,7 @@ struct str_hash_table{
 /* returns 0 on success, <0 on failure */
 inline static int str_hash_alloc(struct str_hash_table* ht, int size)
 {
+	// 初始化链表
 	ht->table=(struct str_hash_head*)pkg_mallocxz(sizeof(struct str_hash_head)*size);
 	if (ht->table==0) {
 		PKG_MEM_ERROR;

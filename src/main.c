@@ -2039,14 +2039,17 @@ int main(int argc, char** argv)
 			case KARGOPTVAL+7:
 					ksr_slog_init(optarg);
 					break;
+			// debug
 			case KARGOPTVAL+8:
 					debug_flag = 1;
+					// 获取debug类型对应的数字
 					default_core_cfg.debug=(int)strtol(optarg, &tmp, 10);
 					if ((tmp==0) || (*tmp)){
 						LM_ERR("bad debug level value: %s\n", optarg);
 						goto error;
 					}
 					break;
+			// atexit 当程序正常终止时，调用指定的函数
 			case KARGOPTVAL+10:
 					if(optarg[0]=='y' || optarg[0]=='1') {
 						ksr_atexit_mode = 1;
@@ -2114,6 +2117,7 @@ int main(int argc, char** argv)
 			case 'X':
 					/* ignore, they were parsed immediately after startup */
 					break;
+			// 配置文件
 			case 'f':
 					if (optarg == NULL) {
 						fprintf(stderr, "bad -f parameter\n");
@@ -2121,10 +2125,12 @@ int main(int argc, char** argv)
 					}
 					cfg_file=optarg;
 					break;
+			// 测试配置文件格式
 			case 'c':
 					config_check=1;
 					log_stderr=1; /* force stderr logging */
 					break;
+			// 配置模块地址
 			case 'L':
 					if (optarg == NULL) {
 						fprintf(stderr, "bad -L parameter\n");
@@ -2133,6 +2139,7 @@ int main(int argc, char** argv)
 					mods_dir = optarg;
 					mods_dir_cmd = 1;
 					break;
+			// shared memory size
 			case 'm':
 					if (optarg == NULL) {
 						fprintf(stderr, "bad shared mem size\n");
@@ -2149,6 +2156,7 @@ int main(int argc, char** argv)
 			case 'd':
 					/* ignore it, was parsed immediately after startup */
 					break;
+			// version
 			case 'v':
 			case 'V':
 					printf("version: %s\n", full_version);
@@ -2164,6 +2172,7 @@ int main(int argc, char** argv)
 
 					exit(0);
 					break;
+			// compile-time constants
 			case 'I':
 					print_internals();
 					exit(0);
@@ -2174,6 +2183,8 @@ int main(int argc, char** argv)
 			case 'e':
 					/* ignore it, was parsed immediately after startup */
 					break;
+			// Script optimization level (debugging option)
+			// 脚本优化等级
 			case 'O':
 					if (optarg == NULL) {
 						fprintf(stderr, "bad -O parameter\n");
@@ -2186,10 +2197,12 @@ int main(int argc, char** argv)
 						goto error;
 					};
 					break;
+			// linux user
 			case 'u':
 					/* user needed for possible shm. pre-init */
 					user=optarg;
 					break;
+			// Add config pre-processor define
 			case 'A':
 					if (optarg == NULL) {
 						fprintf(stderr, "bad -A parameter\n");

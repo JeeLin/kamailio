@@ -62,6 +62,7 @@ typedef void (*sr_mem_mod_free_stats_f)(void* mbp);
 /*private memory api*/
 typedef struct sr_pkg_api {
 	/*memory manager name - soft copy*/
+	// 私有内存管理器名称
 	char *mname;
 	/*entire private memory zone - soft copy*/
 	char *mem_pool;

@@ -39,6 +39,7 @@ sr_pkg_api_t _pkg_root = {0};
 /**
  *
  */
+// 使用初始化的内存管理对象，将默认值替换
 int pkg_init_api(sr_pkg_api_t *ap)
 {
 	memset(&_pkg_root, 0, sizeof(sr_pkg_api_t));
@@ -63,6 +64,7 @@ int pkg_init_api(sr_pkg_api_t *ap)
 /**
  *
  */
+// 根据启动参数，初始化内存管理器
 int pkg_init_manager(char *name)
 {
 	if(strcmp(name, "fm")==0

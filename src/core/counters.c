@@ -101,6 +101,7 @@ int counters_initialized(void)
 /** init the coutner hash table(s).
  * @return 0 on success, -1 on error.
  */
+// 初始化计数器
 int init_counters()
 {
 	if (str_hash_alloc(&cnts_hash_table, CNT_HASH_SIZE) < 0)
